@@ -11,10 +11,14 @@ def emo_detector():
 
     # Pass the text to the emotion_detector function and store the response
     response = emotion_detector(text_to_analyze)
-    emotions_text = f"'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']}, 'sadness': {response['sadness']}"
 
-    # Return the emotion predictions with the scores
-    return f"For the given statement, the system response is {emotions_text}. The dominant emotion is {response['dominant_emotion']}."
+    # Check if the emotions is None, indicating an error or invalid input
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Try again."
+    else:
+        emotions_text = f"'anger': {response['anger']}, 'disgust': {response['disgust']}, 'fear': {response['fear']}, 'joy': {response['joy']}, 'sadness': {response['sadness']}"
+        # Return the emotion predictions with the scores
+        return f"For the given statement, the system response is {emotions_text}. The dominant emotion is {response['dominant_emotion']}."
 
 @app.route("/")
 def render_index_page():
